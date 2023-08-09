@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +17,63 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    /* RAW SQL QUERIES */
+
+    // Select user
+    //$users = DB::select("SELECT * FROM users");
+
+    // Create new user
+    //$users = DB::insert('insert into users (name, email,password) values (?, ?,?)', ['test2', 'test2@gmail.com','admin123']);
+
+    // Update user
+    //$users = DB::update("UPDATE users SET name = ? WHERE id = ?", ['test4', 2]);
+
+    // Delete user
+    //$users = DB::delete("DELETE from users WHERE id = ?", [2]);
+
+    /* QUERY BUILDERS */
+
+    // Select user
+    //$users = DB::table('users')->find(3);
+
+    // Create new user
+    // $users = DB::table('users')->insert([
+    //     'name' => 'test3',
+    //     'email' => 'test3@gmail.com',
+    //     'password' => 'admin123'
+    // ]);
+
+    // Update user
+    // $users = DB::table('users')->where('id', 4)->update([
+    //     'name' => 'test3'
+    // ]);
+
+    // Delete user
+
+    //$users = DB::table('users')->where('id', 4)->delete();
+
+    /* ELOQUENT ORM */
+
+    // Select user
+    $users = User::all();
+
+    // Create new user
+    // $users = User::create([
+    //     'name' => 'test6',
+    //     'email' => 'test4@gmail.com',
+    //     'password' => 'admin123'
+    // ]);
+
+    // Update user
+    // $users = User::find(5);
+    // $users->email = "test5@gmail.com";
+    // $users->save();
+
+    // Delete user
+    // $users = User::find(5);
+    // $users->delete();
+
+    dd($users);
 });
 
 Route::get('/dashboard', function () {
