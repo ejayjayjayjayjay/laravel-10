@@ -4,6 +4,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Profile\AvatarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', function () {
+    return view('welcome');
+});
     /* RAW SQL QUERIES */
 
     // Select user
@@ -55,26 +58,26 @@ Route::get('/', function () {
     /* ELOQUENT ORM */
 
     // Select user
-    $users = User::all();
+    // $users = User::find(7);
 
     // Create new user
     // $users = User::create([
-    //     'name' => 'test6',
-    //     'email' => 'test4@gmail.com',
+    //     'name' => 'test10',
+    //     'email' => 'test10@gmail.com',
     //     'password' => 'admin123'
     // ]);
 
     // Update user
-    // $users = User::find(5);
-    // $users->email = "test5@gmail.com";
+    // $users = User::find(7);
+    // $users->name = "josell";
     // $users->save();
 
     // Delete user
     // $users = User::find(5);
     // $users->delete();
 
-    dd($users);
-});
+    /* dd($users); */
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -83,6 +86,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/avatar',[AvatarController::class, 'update'])->name('profile.update.avatar');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
